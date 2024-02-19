@@ -7,9 +7,9 @@ export default function Features() {
         <h2 className="font-onest text-5xl font-bold md:text-left md:w-11/12">
           Features
         </h2>
-        <p className='className="text-lg text-left md:w-11/12 lg:w-[45%]'>
+        <p className="text-lg text-left md:w-11/12 lg:w-[45%]">
           Get to know why Cardneto is a great way to connect and grow your
-          network with these functionality.
+          network with these functionalities.
         </p>
         <div className="lg:flex lg:flex-row lg:justify-between lg:items-center flex flex-col gap-5 md:gap-7 lg:gap-5 ">
           <div className="lg:w-1/2 border-border border rounded-3xl">
@@ -39,10 +39,10 @@ export default function Features() {
             <div className="p-8 flex flex-col gap-2">
               <h4 className="font-medium text-2xl">Digital profile</h4>
               <p className="lg:w-[87%] w-[95%]">
-                You will have a Linktree digital profile on internet that people
-                could have access to if they scan your Cardneto digital business
-                card. Customize it, integrate services you want so people could
-                communicate with you!
+                You will have a Linktree digital profile on the internet that
+                people could have access to if they scan your Cardneto digital
+                business card. Customize it, integrate services you want so
+                people could communicate with you!
               </p>
             </div>
           </div>
@@ -60,10 +60,10 @@ export default function Features() {
             <div className="p-8 flex flex-col gap-2">
               <h4 className="font-medium text-2xl">Collect leads</h4>
               <p className="lg:w-[87%] w-[95%]">
-                With Cardneto, it's simple to keep track of who's interested in
-                you. Find out who has connected you. Whether you meet people in
-                person or online, Cardneto helps you connect and expand your
-                connections effortlessly.
+                With Cardneto, it&apos;s simple to keep track of who&apos;s
+                interested in you. Find out who has connected you. Whether you
+                meet people in person or online, Cardneto helps you connect and
+                expand your connections effortlessly.
               </p>
             </div>
           </div>
@@ -78,9 +78,10 @@ export default function Features() {
               <h4 className="font-medium text-2xl">It’s in your browser</h4>
               <p className="lg:w-[87%] w-[95%]">
                 Digital profile is just a click away with Cardneto, right in
-                your browser. No need for extra apps – it's all there at your
-                fingertips. Networking becomes a breeze, and you can connect
-                with others wherever you are on your professional journey.
+                your browser. No need for extra apps – it&apos;s all there at
+                your fingertips. Networking becomes a breeze, and you can
+                connect with others wherever you are on your professional
+                journey.
               </p>
             </div>
           </div>

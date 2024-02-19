@@ -1,5 +1,6 @@
 import { Button } from '../ui/Button';
 import Image from 'next/image';
+
 export default function HowDoesWork() {
   return (
     <section className="py-14 bg-white">
@@ -15,8 +16,8 @@ export default function HowDoesWork() {
             </h3>
             <p className="text-lg text-center lg:w-11/12 md:w-11/12">
               Start by signing up on Cardneto to create your own digital
-              business card. It's like having a virtual version of your business
-              info that you can easily share.
+              business card. It&apos;s like having a virtual version of your
+              business info that you can easily share.
             </p>
             <Image
               src="/img/Illustrations.png"
@@ -46,8 +47,8 @@ export default function HowDoesWork() {
             </h3>
             <p className="text-lg text-center lg:w-11/12 md:w-11/12">
               Tell us your contact details, social media links, and a little
-              about yourself. We've made it super easy to update and keep your
-              digital card info current.
+              about yourself. We&apos;ve made it super easy to update and keep
+              your digital card info current.
             </p>
             <Image
               src="/img/Illustrations1.png"
@@ -77,8 +78,8 @@ export default function HowDoesWork() {
             </h3>
             <p className="text-lg text-center lg:w-10/12 md:w-11/12">
               When you meet someone at events, just share your digital card by
-              scanning a QR code or attaching it to a phone. It's a quick way to
-              keep your professional network growing with.
+              scanning a QR code or attaching it to a phone. It&apos;s a quick
+              way to keep your professional network growing with.
             </p>
             <Image
               src="/img/Illustrations2.png"
