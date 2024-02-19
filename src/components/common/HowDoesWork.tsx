@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function HowDoesWork() {
   return (
-    <section className="py-14 bg-white">
+    <section id="#howItWorksSection" className="py-14 bg-white">
       <div className="md:w-10/12 w-11/12 max-w-screen-2xl mx-auto lg:flex lg:justify-between lg:items-center flex flex-col gap-5">
         <h2 className="text-5xl font-bold md:text-center lg:text-center w-11/12 text-left">
           How does it work?

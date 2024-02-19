@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function CardsSection() {
   return (
-    <section className="bg-pure-white py-10">
+    <section id="#cardsSection" className="bg-pure-white py-10">
       <div className="lg:w-10/12 md:w-10/12 w-11/12 max-w-screen-2xl mx-auto">
         <h2 className="text-5xl font-bold pb-10 text-center md:w-full w-11/12 leading-[64px]">
           Cardneto Digital Business Cards

@@ -2,7 +2,10 @@ import Image from 'next/image';
 
 export default function Features() {
   return (
-    <section className="bg-[url('/img/Features.png')] py-10">
+    <section
+      id="#featuresSection"
+      className="bg-[url('/img/Features.png')] py-10"
+    >
       <div className="lg:w-10/12 md:w-10/12 w-11/12 max-w-screen-2xl mx-auto font-onest flex flex-col gap-5 pb-5">
         <h2 className="font-onest text-5xl font-bold md:text-left md:w-11/12">
           Features

@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-
+import { Link as ScrollLink } from 'react-scroll';
 import {
   Sheet,
   SheetContent,
@@ -16,30 +16,34 @@ import {
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [nav, setNav] = useState(false);
 
   const routes = [
     {
+      id: '#aboutSection',
       href: `/about`,
       label: 'About',
       active: pathname === `/about`,
     },
     {
+      id: '#howItWorksSection',
       href: `/how-it-works`,
       label: 'How it works?',
       active: pathname === `/how-it-works`,
     },
     {
+      id: '#featuresSection',
       href: `/features`,
       label: 'Features',
       active: pathname === `/features`,
     },
     {
+      id: '#cardsSection',
       href: `/cards`,
       label: 'Cards',
       active: pathname === `/cards`,
     },
   ];
+
   return (
     <nav className="flex justify-between items-center w-full h-[72px] border-b border-border-color bg-pure-white text-black-color">
       <div className="md:w-10/12 lg:w-10/12 w-11/12 max-w-screen-2xl flex justify-between items-center mx-auto">
@@ -66,7 +70,16 @@ export default function Navbar() {
                   : 'text-muted-foreground',
               )}
             >
-              <Link href={route.href}>{route.label}</Link>
+              <ScrollLink
+                to={route.id}
+                spy={true}
+                smooth={true}
+                duration={500}
+                offset={50}
+                className="cursor-pointer"
+              >
+                {route.label}
+              </ScrollLink>
             </li>
           ))}
           <li className="relative">
@@ -102,11 +115,23 @@ export default function Navbar() {
                   {routes.map((route) => (
                     <li
                       key={route.href}
-                      className="text-left md:text-[28px] sm:text-2xl border-t border-border md:w-11/12 w-full text-2xl pt-10"
+                      className={cn(
+                        'text-left md:text-[28px] sm:text-2xl border-t border-border md:w-11/12 w-full text-2xl pt-10',
+                        route.active
+                          ? 'text-black-color font-medium'
+                          : 'text-muted-foreground',
+                      )}
                     >
-                      <Link onClick={() => setNav(!nav)} href={route.href}>
-                        {route.label}
-                      </Link>
+                      <ScrollLink
+                        to={route.id}
+                        spy={true}
+                        smooth={true}
+                        duration={500}
+                        offset={50}
+                        className="cursor-pointer"
+                      >
+                        <SheetTrigger>{route.label}</SheetTrigger>
+                      </ScrollLink>
                     </li>
                   ))}
                   <hr className="w-full border-border md:w-11/12" />
@@ -189,95 +214,6 @@ export default function Navbar() {
           </SheetContent>
         </Sheet>
       </div>
-
-      {nav && (
-        <ul className="flex flex-col justify-start items-center absolute top-0 left-0 h-screen w-full bg-pure-white gap-4 pt-24">
-          {routes.map((route) => (
-            <li
-              key={route.href}
-              className="text-left md:text-[28px] sm:text-2xl border-t border-border-color  w-11/12 pt-10"
-            >
-              <Link onClick={() => setNav(!nav)} href={route.href}>
-                {route.label}
-              </Link>
-            </li>
-          ))}
-          <hr className="w-11/12 border-borderColor" />
-          <ul className=" flex items-center gap-5 text-left w-11/12 pt-4">
-            <li>
-              <Link
-                href={'https://www.facebook.com/home.php'}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <Image
-                  src="/social-i cons/facebook.svg"
-                  width={24}
-                  height={24}
-                  alt={'Facebook'}
-                  className="mr-auto"
-                />
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={'https://www.instagram.com'}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <Image
-                  src="/social-icons/instagram.svg"
-                  width={24}
-                  height={24}
-                  alt={'Instagram'}
-                />
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={'https://www.linkedin.com'}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <Image
-                  src="/social-icons/linkedin.svg"
-                  width={24}
-                  height={24}
-                  alt={'Linkedin'}
-                />
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={'/telegram'}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <Image
-                  src="/social-icons/telegram.svg"
-                  width={24}
-                  height={24}
-                  alt={'Telegram'}
-                />
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={'https://www.youtube.com'}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <Image
-                  src="/social-icons/youtube.svg"
-                  width={24}
-                  height={24}
-                  alt={'YouTube'}
-                />
-              </Link>
-            </li>
-          </ul>
-        </ul>
-      )}
     </nav>
   );
 }

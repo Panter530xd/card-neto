@@ -2,7 +2,7 @@ import { Button } from '../ui/Button';
 import Image from 'next/image';
 export default function AboutUs() {
   return (
-    <section className="bg-primary py-14">
+    <section id="#aboutSection" className="bg-primary py-14">
       <div className="lg:w-10/12 md:w-10/12 w-11/12 max-w-screen-2xl mx-auto font-onest lg:flex-row lg:flex lg:justify-between lg:items-center flex flex-col-reverse">
         <div className="flex flex-col gap-5 lg:w-1/2">
           <p className="text-xl font-medium text-white">
