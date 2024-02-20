@@ -6,7 +6,7 @@ export default function Features() {
       id="#featuresSection"
       className="bg-[url('/img/Features.png')] py-10"
     >
-      <div className="lg:w-10/12 md:w-10/12 w-11/12 max-w-screen-2xl mx-auto font-onest flex flex-col gap-5 pb-5">
+      <div className="lg:w-10/12 md:w-10/12 w-11/12 max-w-screen-2xl mx-auto flex flex-col justify-center gap-5 pb-5">
         <h2 className="font-onest text-5xl font-bold md:text-left md:w-11/12">
           Features
         </h2>
@@ -21,6 +21,7 @@ export default function Features() {
               width={682}
               height={275}
               alt={'Feature image'}
+              className="w-full"
             />
             <div className="p-8 flex flex-col gap-2">
               <h4 className="font-medium text-2xl">Multiple Integrations</h4>
@@ -38,6 +39,7 @@ export default function Features() {
               width={682}
               height={275}
               alt={'Feature image'}
+              className="w-full"
             />
             <div className="p-8 flex flex-col gap-2">
               <h4 className="font-medium text-2xl">Digital profile</h4>
@@ -59,6 +61,7 @@ export default function Features() {
               width={682}
               height={275}
               alt={'Feature image'}
+              className="w-full"
             />
             <div className="p-8 flex flex-col gap-2">
               <h4 className="font-medium text-2xl">Collect leads</h4>
@@ -76,6 +79,7 @@ export default function Features() {
               width={682}
               height={275}
               alt={'Feature image'}
+              className="w-full"
             />
             <div className="p-8 flex flex-col gap-2">
               <h4 className="font-medium text-2xl">It’s in your browser</h4>

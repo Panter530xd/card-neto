@@ -9,52 +9,61 @@ export default function CardsSection() {
         </h2>
         <div className="lg:grid lg:grid-cols-4 md:grid md:grid-cols-2 flex flex-col w-full gap-4">
           <div className="flex flex-col gap-2">
-            <Image
-              src="/cards-img/Card-Gray.png"
-              width={282}
-              height={282}
-              alt={'Card Image'}
-              className="md:w-[282px] md:h-[282px] w-[336px] h-[282px]"
-            />
+            <div className="border border-border flex justify-center">
+              <Image
+                src="/cards-img/Rectangl.png"
+                width={282}
+                height={282}
+                alt={'Card Image'}
+                className="w-full"
+              />
+            </div>
+
             <h3 className="font-onest text-xl font-medium">
               Cardneto Card Classic
             </h3>
             <p className="">590 MDL</p>
           </div>
           <div className="flex flex-col gap-2">
-            <Image
-              src="/cards-img/Card-Blue.png"
-              width={282}
-              height={282}
-              alt={'Card Image'}
-              className="md:w-[282px] md:h-[282px] w-[336px] h-[282px]"
-            />
+            <div className="border border-border flex justify-center">
+              <Image
+                src="/cards-img/Card-Blue-removebg.png"
+                width={282}
+                height={282}
+                alt={'Card Image'}
+                className="w-full"
+              />
+            </div>
             <h3 className="font-onest text-xl font-medium">
               Cardneto Card Metal
             </h3>
             <p className="">740 MDL</p>
           </div>
           <div className="flex flex-col gap-2">
-            <Image
-              src="/cards-img/Card-Metal.png"
-              width={282}
-              height={282}
-              alt={'Card Image'}
-              className="md:w-[282px] md:h-[282px] w-[336px] h-[282px]"
-            />
+            <div className="border border-border flex justify-center">
+              <Image
+                src="/cards-img/Card-Metal-removebg.png"
+                width={282}
+                height={282}
+                alt={'Card Image'}
+                className="w-full"
+              />
+            </div>
             <h3 className="font-onest text-xl font-medium">
               Cardneto Card Metal Custom
             </h3>
             <p className="">890 MDL</p>
           </div>
           <div className="flex flex-col gap-2">
-            <Image
-              src="/cards-img/Card-Red.png"
-              width={282}
-              height={282}
-              alt={'Card Image'}
-              className="md:w-[282px] md:h-[282px] w-[336px] h-[282px]"
-            />
+            <div className="border border-border flex justify-center">
+              <Image
+                src="/cards-img/Card-Red-removebg.png"
+                width={282}
+                height={282}
+                alt={'Card Image'}
+                className="w-full"
+              />
+            </div>
             <h3 className="font-onest text-xl font-medium">
               Cardneto Card Classic
             </h3>
@@ -63,52 +72,60 @@ export default function CardsSection() {
         </div>
         <div className="lg:grid lg:grid-cols-4 md:grid md:grid-cols-2 gap-4 pt-5">
           <div className="flex flex-col gap-2">
-            <Image
-              src="/cards-img/Card-Classic.png"
-              width={282}
-              height={282}
-              alt={'Card Image'}
-              className="md:w-[282px] md:h-[282px] w-[336px] h-[282px]"
-            />
+            <div className="border border-border flex justify-center">
+              <Image
+                src="/cards-img/Card-Classic.png"
+                width={282}
+                height={282}
+                alt={'Card Image'}
+                className="w-full"
+              />
+            </div>
             <h3 className="font-onest text-xl font-medium">
               Cardneto Card Classic
             </h3>
             <p className="">890 MDL</p>
           </div>
           <div className="flex flex-col gap-2">
-            <Image
-              src="/cards-img/Card-Gray.png"
-              width={282}
-              height={282}
-              alt={'Card Image'}
-              className="md:w-[282px] md:h-[282px] w-[336px] h-[282px]"
-            />
+            <div className="border border-border flex justify-center">
+              <Image
+                src="/cards-img/Rectangl.png"
+                width={282}
+                height={282}
+                alt={'Card Image'}
+                className="w-full"
+              />
+            </div>
             <h3 className="font-onest text-xl font-medium">
-              Cardneto Card Metal
+              Cardneto Card Classic
             </h3>
             <p className="">590 MDL</p>
           </div>
           <div className="flex flex-col gap-2">
-            <Image
-              src="/cards-img/Card-Gray.png"
-              width={282}
-              height={282}
-              alt={'Card Image'}
-              className="md:w-[282px] md:h-[282px] w-[336px] h-[282px]"
-            />
+            <div className="border border-border flex justify-center">
+              <Image
+                src="/cards-img/Rectangl.png"
+                width={282}
+                height={282}
+                alt={'Card Image'}
+                className="w-full"
+              />
+            </div>
             <h3 className="font-onest text-xl font-medium">
-              Cardneto Card Metal Custom
+              Cardneto Card Classic
             </h3>
             <p className="">590 MDL</p>
           </div>
           <div className="flex flex-col gap-2">
-            <Image
-              src="/cards-img/Card-Gray.png"
-              width={282}
-              height={282}
-              alt={'Card Image'}
-              className="md:w-[282px] md:h-[282px] w-[336px] h-[282px]"
-            />
+            <div className="border border-border flex justify-center">
+              <Image
+                src="/cards-img/Rectangl.png"
+                width={282}
+                height={282}
+                alt={'Card Image'}
+                className="w-full"
+              />
+            </div>
             <h3 className="font-onest text-xl font-medium">
               Cardneto Card Classic
             </h3>

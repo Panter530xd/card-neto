@@ -43,7 +43,7 @@ export default function AboutUs() {
             width={584}
             height={562}
             alt={'CEO Image'}
-            className="md:mr-auto lg:w-[584px] lg:h-[562px] md:w-[450px] md:h-[338px] w-[336px] h-[263px]"
+            className="md:mr-auto lg:w-[584px] lg:h-[562px] md:w-[450px] md:h-[338px] w-full"
           />
         </div>
         <div className="flex flex-col gap-5 lg:w-1/2">

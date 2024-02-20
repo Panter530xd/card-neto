@@ -11,7 +11,7 @@ export default function AutoSliderImages() {
       autoFill
     >
       <div className="w-full">
-        <div className="lg:flex lg:flex-row md:flex-row md:flex grid grid-cols-4 gap-4 justify-between items-center lg:w-10/12 lg:justify-stretch md:w-10/12 w-11/12 mx-auto">
+        <div className="lg:flex lg:flex-row md:flex-row md:flex flex  gap-4 justify-between items-center lg:w-10/12 lg:justify-stretch md:w-10/12 w-11/12 mx-auto">
           <div className="flex-shrink-0 lg:mx-10 md:mx-4">
             <Image
               src="/slider-img/Orange.svg"
