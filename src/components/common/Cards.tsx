@@ -7,7 +7,7 @@ export default function CardsSection() {
         <h2 className="text-5xl font-bold pb-10 text-center md:w-full w-11/12 leading-[64px]">
           Cardneto Digital Business Cards
         </h2>
-        <div className="lg:grid lg:grid-cols-4 md:grid md:grid-cols-2 flex flex-col w-full gap-4">
+        <div className="lg:grid lg:grid-cols-4 md:grid md:grid-cols-2 flex flex-col w-full gap-6">
           <div className="flex flex-col gap-2">
             <div className="border border-border flex justify-center">
               <Image
@@ -70,7 +70,7 @@ export default function CardsSection() {
             <p className="">590 MDL</p>
           </div>
         </div>
-        <div className="lg:grid lg:grid-cols-4 md:grid md:grid-cols-2 gap-4 pt-5">
+        <div className="lg:grid lg:grid-cols-4 md:grid md:grid-cols-2 flex flex-col w-full gap-6 pt-5">
           <div className="flex flex-col gap-2">
             <div className="border border-border flex justify-center">
               <Image
