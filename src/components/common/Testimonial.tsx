@@ -48,20 +48,20 @@ const TestimonialSlider: React.FC<TestimonialSliderProps> = ({
   };
 
   return (
-    <div className="relative flex items-center justify-center bg-black py-14">
+    <div className="relative flex items-center justify-center bg-black lg:py-14 py-8">
       <div className="embla" ref={emblaRef}>
         <div className="embla__container">
           {testimonials.map((testimonial, index) => (
             <div className="embla__slide" key={testimonial.id}>
               <div
-                className={` w-10/12 mx-auto p-5 ${
+                className={` md:w-10/12 mx-auto  ${
                   index === selectedIndex ? '' : 'hidden'
                 }`}
               >
-                <h2 className="text-[32px] text-pure-white font-bold text-center">
+                <h2 className="text-[32px] text-pure-white font-bold text-center pb-2">
                   {testimonial.title}
                 </h2>
-                <p className="text-pure-white text-lg lg:w-8/12 mx-auto text-center">
+                <p className="text-pure-white text-lg lg:w-8/12 w-full mx-auto text-center">
                   {testimonial.content}
                 </p>
                 <div className="flex justify-center items-center mt-2">
