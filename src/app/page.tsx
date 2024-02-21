@@ -7,6 +7,8 @@ import CardsSection from '@/components/common/Cards';
 import TestimonialSlider from '@/components/common/Testimonial';
 import { testimonials } from '@/testimonial/testimonialsData';
 
+import { EmblaOptionsType } from 'embla-carousel';
+
 export default function Home() {
   return (
     <main className="w-full">
