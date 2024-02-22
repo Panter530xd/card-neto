@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 .embla {
-  width: 100%;
   --slide-spacing: 1rem;
   --slide-size: 100%;
+  --slide-height: 19rem;
+  padding: 1.6rem;
 }
 
 .embla__viewport {
