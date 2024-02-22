@@ -147,6 +147,7 @@ export default function Navbar() {
                           width={24}
                           height={24}
                           alt={'Facebook'}
+                          priority={true}
                           className="mr-auto"
                         />
                       </Link>
@@ -162,6 +163,7 @@ export default function Navbar() {
                           width={24}
                           height={24}
                           alt={'Instagram'}
+                          priority={true}
                         />
                       </Link>
                     </li>
@@ -176,6 +178,7 @@ export default function Navbar() {
                           width={24}
                           height={24}
                           alt={'Linkedin'}
+                          priority={true}
                         />
                       </Link>
                     </li>
@@ -190,6 +193,7 @@ export default function Navbar() {
                           width={24}
                           height={24}
                           alt={'Telegram'}
+                          priority={true}
                         />
                       </Link>
                     </li>
@@ -204,6 +208,7 @@ export default function Navbar() {
                           width={24}
                           height={24}
                           alt={'YouTube'}
+                          priority={true}
                         />
                       </Link>
                     </li>
