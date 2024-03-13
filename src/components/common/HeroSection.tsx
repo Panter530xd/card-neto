@@ -1,7 +1,14 @@
+'use client';
 import Image from 'next/image';
 import { Button } from '../ui/Button';
-import Hero from '/img/Hero-bg.png';
+
 export default function HeroComponent() {
+  const handleClickOrderCard = () => {
+    window.open(
+      'https://docs.google.com/forms/d/e/1FAIpQLSftIicvsmIU7OAi3pcded5nPz7hovmCR5IrGP6fx4v1SFauJA/viewform?usp=sf_link',
+    );
+  };
+
   return (
     <section className="bg-[url('/img/Hero-bg.png')] ">
       <div className="lg:flex lg:flex-row flex flex-col justify-between items-center lg:w-10/12 md:w-10/12 w-11/12 max-w-screen-2xl mx-auto lg:py-10 pt-5">
@@ -14,7 +21,11 @@ export default function HeroComponent() {
             opportunities and make more connections.
           </p>
 
-          <Button size={'lg'} className="font-medium text-xl mr-auto">
+          <Button
+            onClick={handleClickOrderCard}
+            size={'lg'}
+            className="font-medium text-xl mr-auto"
+          >
             Order a card
           </Button>
           <Image src="/img/Rating.png" width={289} height={56} alt={'Rating'} />

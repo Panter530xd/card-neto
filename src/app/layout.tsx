@@ -3,7 +3,7 @@ import { Onest } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
-
+import { CartProvider } from '@/components/common/CartProvider';
 const onest = Onest({
   subsets: ['latin'],
   variable: '--font-onest',
@@ -22,9 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={onest.className}>
       <body>
-        <Navbar />
-        {children}
-        <Footer />
+        <CartProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

@@ -1,6 +1,14 @@
-import { Button } from '../ui/Button';
+'use client';
 import Image from 'next/image';
+import { Button } from '../ui/Button';
+
 export default function AboutUs() {
+  const handleClickOrderCard = () => {
+    window.open(
+      'https://docs.google.com/forms/d/e/1FAIpQLSftIicvsmIU7OAi3pcded5nPz7hovmCR5IrGP6fx4v1SFauJA/viewform?usp=sf_link',
+    );
+  };
+
   return (
     <section id="#aboutSection" className="bg-primary py-14">
       <div className="lg:w-10/12 md:w-10/12 w-11/12 max-w-screen-2xl mx-auto font-onest lg:flex-row lg:flex lg:justify-between lg:items-center flex flex-col-reverse">
@@ -20,6 +28,7 @@ export default function AboutUs() {
             open instantly in a phone browser when shared.
           </p>
           <Button
+            onClick={handleClickOrderCard}
             size={'lg'}
             className="bg-black text-pure-white text-xl font-medium mr-auto"
           >
@@ -43,7 +52,7 @@ export default function AboutUs() {
             width={584}
             height={562}
             alt={'CEO Image'}
-            className="md:mr-auto lg:w-[584px] lg:h-[562px] md:w-[450px] md:h-[338px] w-full"
+            className="md:mr-auto lg:w-[584px] lg:h-[562px] md:w-[450px] md:h-[338px] w-[336px] h-[263px]"
           />
         </div>
         <div className="flex flex-col gap-5 lg:w-1/2">
@@ -62,6 +71,7 @@ export default function AboutUs() {
             their information with you.
           </p>
           <Button
+            onClick={handleClickOrderCard}
             size={'lg'}
             className="bg-black text-pure-white text-xl font-medium lg:w-[33%] lg:ml-32 mr-auto"
           >

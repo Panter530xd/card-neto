@@ -55,7 +55,7 @@ const TestimonialSlider: React.FC<TestimonialSliderProps> = ({
             {testimonials.map((testimonial, index) => (
               <div className="embla__slide" key={testimonial.id}>
                 <div
-                  className={` md:w-10/12 w-11/12  mx-auto  ${
+                  className={` md:w-10/12 w-11/12 mx-auto  ${
                     index === selectedIndex ? '' : 'hidden'
                   }`}
                 >

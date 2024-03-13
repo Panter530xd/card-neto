@@ -26,10 +26,10 @@ export default function Features() {
             <div className="p-8 flex flex-col gap-2">
               <h4 className="font-medium text-2xl">Multiple Integrations</h4>
               <p className="lg:w-[87%] w-[95%]">
-                Make your profile uniquely yours by adding your social media,
-                work info, and more. When someone scans your Cardneto digital
-                business card, they see everything about you, making it super
-                easy to connect and chat.
+                Make your profile unique by adding your social media, work info,
+                and more. When someone scans your Cardneto digital business
+                card, they see everything about you, making it super easy to
+                connect and chat.
               </p>
             </div>
           </div>
@@ -67,9 +67,9 @@ export default function Features() {
               <h4 className="font-medium text-2xl">Collect leads</h4>
               <p className="lg:w-[87%] w-[95%]">
                 With Cardneto, it&apos;s simple to keep track of who&apos;s
-                interested in you. Find out who has connected you. Whether you
-                meet people in person or online, Cardneto helps you connect and
-                expand your connections effortlessly.
+                interested in you. Find out who has connected with you. Whether
+                you meet people in person or online, Cardneto helps you connect
+                and expand your connections effortlessly.
               </p>
             </div>
           </div>

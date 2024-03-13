@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Link as ScrollLink } from 'react-scroll';
@@ -13,9 +14,24 @@ import {
   SheetHeader,
   SheetTrigger,
 } from '@/components/ui/Sheet';
+import { useCart } from '../common/CartProvider';
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { cartItems } = useCart();
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const router = useRouter();
+
+  useEffect(() => {
+    const quantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+    setTotalQuantity(quantity);
+  }, [cartItems]);
+
+  const handleNavigation = () => {
+    if (pathname !== '/') {
+      router.push('/');
+    }
+  };
 
   const routes = [
     {
@@ -45,7 +61,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="flex justify-between items-center w-full h-[72px] border-b border-border-color bg-pure-white text-black-color">
+    <nav className="flex justify-between items-center w-full h-[72px] border-b border-border bg-pure-white text-black-color">
       <div className="md:w-10/12 lg:w-10/12 w-11/12 max-w-screen-2xl flex justify-between items-center mx-auto">
         <div>
           <Link href="/">
@@ -59,7 +75,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <ul className="hidden lg:flex gap-5 items-center ml-auto">
+        <ul className="hidden lg:flex gap-10 items-center ml-auto">
           {routes.map((route) => (
             <li
               key={route.href}
@@ -77,6 +93,7 @@ export default function Navbar() {
                 duration={500}
                 offset={50}
                 className="cursor-pointer"
+                onClick={handleNavigation} // Add onClick event handler to handle navigation
               >
                 {route.label}
               </ScrollLink>
@@ -85,7 +102,7 @@ export default function Navbar() {
           <li className="relative">
             <Link
               href={'/cart'}
-              className="border border-border-color  rounded-md px-3 py-2 bg-white-color text-black-color flex gap-2 items-center"
+              className="border border-border  rounded-md px-5 py-2 bg-white-color text-black-color flex gap-2 items-center"
             >
               Cart
               <Image
@@ -94,7 +111,13 @@ export default function Navbar() {
                 height={24}
                 alt={'Shopping Cart'}
               />
-              <div className="w-[10px] h-[10px] rounded-full bg-primary absolute right-[10px] top-[6px]"></div>
+              {totalQuantity > 0 && (
+                <div className="w-[10px] h-[10px] rounded-full bg-primary absolute right-[17px] top-[6px]">
+                  <p className="absolute left-[11px] -top-[3px] text-primary font-bold text-xs">
+                    {totalQuantity}
+                  </p>
+                </div>
+              )}
             </Link>
           </li>
         </ul>
@@ -129,6 +152,7 @@ export default function Navbar() {
                         duration={500}
                         offset={50}
                         className="cursor-pointer"
+                        onClick={handleNavigation} // Add onClick event handler to handle navigation
                       >
                         <SheetTrigger>{route.label}</SheetTrigger>
                       </ScrollLink>
