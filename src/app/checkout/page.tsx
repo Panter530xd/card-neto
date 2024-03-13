@@ -5,16 +5,21 @@ import Image from 'next/image';
 import { Input } from '@/components/ui/Input';
 import ShippingAddressForm from '@/components/common/ShippingForm';
 import { useCart } from '@/components/common/CartProvider';
+import { useEffect, useState } from 'react';
 
 export default function CheckoutPage() {
-  const {
-    cartItems,
-    decreaseQuantity,
-    increaseQuantity,
-    removeFromCart,
-    selectedColor,
-    totalPrice,
-  } = useCart();
+  const { cartItems, totalPrice } = useCart();
+
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <section className="relative">
       <div className="bg-pure-white lg:hidden md:flex flex gap-5 py-6 border-b border-border">
