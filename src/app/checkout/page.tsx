@@ -71,7 +71,7 @@ export default function CheckoutPage() {
                         <p>{item.quantity}</p>
                       </div>
                     </div>
-                    <div className="md:flex md:items-center flex items-center -ml-14 md:-ml-0 lg:mt-0 mt-9">
+                    <div className="md:flex md:items-center flex items-center -ml-14 md:-ml-0 lg:mt-0 mt-[70px]">
                       <p className="text-sm">{`MDL${
                         item.price * item.quantity
                       }.00`}</p>

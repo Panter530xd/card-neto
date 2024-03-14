@@ -49,11 +49,17 @@ export interface CartItem {
   price: number;
 }
 
+interface SelectedColorsMap {
+  [productId: number]: CommonColor | null;
+}
+
+const initialSelectedColors: SelectedColorsMap = {};
+
 interface CartContextType {
   cartItems: CartItem[];
   totalPrice: number;
-  selectedColor: CommonColor | null;
-  setSelectedColor: (color: CommonColor) => void;
+  selectedColor: SelectedColorsMap;
+  setSelectedColor: (productId: number, color: CommonColor | null) => void;
   addToCart: (
     product: Product,
     quantity: number,
@@ -88,7 +94,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   });
 
-  const [selectedColor, setSelectedColor] = useState<CommonColor | null>(null);
+  const [selectedColor, setSelectedColor] = useState<SelectedColorsMap>({});
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -107,32 +113,42 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     selectedColor: CommonColor | null,
     imageIndex: number,
   ) => {
-    if (selectedColor) {
-      const selectedProductColor = product.productColors.find(
-        (productColor) => productColor.id === selectedColor.id,
-      );
+    if (
+      !selectedColor ||
+      !selectedColor.productImages ||
+      !selectedColor.productImages[imageIndex]
+    ) {
+      console.error('Selected color or its images are not available.');
+      return;
+    }
 
-      if (selectedProductColor) {
-        const newItem: CartItem = {
-          product: product,
-          color: selectedProductColor,
-          selectedColor: selectedColor,
-          quantity,
-          name: product.name,
-          image: {
-            index: imageIndex,
-            url: selectedProductColor.productImages[imageIndex]?.url,
-          },
-          price: product.price,
-        };
+    const existingItemIndex = cartItems.findIndex(
+      (item) =>
+        item.product.id === product.id &&
+        item.selectedColor?.id === selectedColor.id,
+    );
 
-        setCartItems([...cartItems, newItem]);
-        console.log('New item added to cart:', newItem);
-      } else {
-        console.error('Selected color not found in product colors.');
-      }
+    if (existingItemIndex !== -1) {
+      const updatedCartItems = [...cartItems];
+      updatedCartItems[existingItemIndex].quantity += quantity;
+      setCartItems(updatedCartItems);
     } else {
-      console.error('No color selected.');
+      const imageUrl = selectedColor.productImages[imageIndex].url || '';
+
+      const newItem: CartItem = {
+        product: product,
+        color: selectedColor,
+        selectedColor: selectedColor,
+        quantity,
+        name: product.name,
+        image: {
+          index: imageIndex,
+          url: imageUrl,
+        },
+        price: product.price,
+      };
+
+      setCartItems([...cartItems, newItem]);
     }
   };
 
@@ -156,11 +172,23 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const setSelectedColorState = (
+    productId: number,
+    color: CommonColor | null,
+  ) => {
+    setSelectedColor((prevSelectedColor) => {
+      return {
+        ...prevSelectedColor,
+        [productId]: color,
+      };
+    });
+  };
+
   const contextValue: CartContextType = {
     cartItems,
     totalPrice,
     selectedColor,
-    setSelectedColor,
+    setSelectedColor: setSelectedColorState,
     addToCart,
     removeFromCart,
     increaseQuantity,

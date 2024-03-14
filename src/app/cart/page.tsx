@@ -5,7 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CommonColor, useCart } from '@/components/common/CartProvider';
 import RadioGroup from '@/components/common/RadioForColors';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import LoadingSpinner from '@/components/common/LoadingSpinner';
 
 export default function CardPage() {
   const {
@@ -13,23 +14,43 @@ export default function CardPage() {
     decreaseQuantity,
     increaseQuantity,
     removeFromCart,
-    selectedColor,
+    setCartItems,
+
     totalPrice,
   } = useCart();
 
-  console.log('Cart page', cartItems);
+  const [isMounted, setIsMounted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-  console.log('selectedColor,', selectedColor);
+  if (!isMounted) {
+    return null;
+  }
 
-  const [selectedColorNames, setSelectedColorNames] = useState<{
-    [key: number]: string;
-  }>({});
+  const handleColorChange = (colorId: number, index: number) => {
+    const updatedCartItems = [...cartItems];
+    const selectedItem = updatedCartItems[index];
 
-  const handleColorChange = (color: CommonColor, productId: number) => {
-    setSelectedColorNames((prevState) => ({
-      ...prevState,
-      [productId]: color.name,
-    }));
+    const selectedProductColor = selectedItem.product.productColors.find(
+      (productColor) => productColor.id === colorId,
+    );
+
+    if (selectedProductColor) {
+      selectedItem.selectedColor = selectedProductColor;
+    }
+
+    console.log('Updated Cart Items:', updatedCartItems);
+    setCartItems(updatedCartItems);
+  };
+
+  const handleCheckout = () => {
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   };
 
   return (
@@ -83,15 +104,15 @@ export default function CardPage() {
                     </h4>
                     <div className="flex items-center gap-3">
                       <div>
-                        <p>{selectedColorNames[item.color.id]}</p>
+                        <p>{item.selectedColor?.name}</p>
                       </div>
                       <div className="-mt-8">
                         <RadioGroup
                           colors={item.product?.productColors}
-                          onSelectColor={(color) =>
-                            handleColorChange(color, item.color.id)
+                          onSelectColor={(colorId) =>
+                            handleColorChange(colorId.id, index)
                           }
-                          selectedColor={selectedColor}
+                          selectedColor={item.selectedColor}
                           labelText=""
                           selectedColorName={''}
                         />
@@ -168,14 +189,27 @@ export default function CardPage() {
                 , Refund Policy, and{' '}
                 <span className="text-blue cursor-pointer">Privacy Policy</span>
               </p>
-              <Link className="w-full md:w-[141px]" href="/checkout">
+              {loading ? (
                 <Button
                   size="lg"
-                  className="font-medium w-full md:w-[141px] text-base"
+                  className="font-medium md:w-[141px] text-base"
+                  disabled={loading}
                 >
-                  Continue
+                  <div className="flex items-center justify-center gap-2">
+                    <LoadingSpinner /> Continue...
+                  </div>
                 </Button>
-              </Link>
+              ) : (
+                <Link href="/checkout" className="w-full md:w-[141px]">
+                  <Button
+                    size="lg"
+                    className="font-medium w-full md:w-[141px] text-base"
+                    onClick={handleCheckout}
+                  >
+                    Continue
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
         )}

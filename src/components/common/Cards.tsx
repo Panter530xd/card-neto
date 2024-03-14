@@ -1,9 +1,9 @@
 'use client';
 
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import CardsSkeleton from './CardsSkeleton';
 
 interface Product {
   id: number;
@@ -20,8 +20,10 @@ interface Product {
   updatedAt: string;
 }
 
-export default function CardsSection() {
+const CardsSection = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -31,8 +33,10 @@ export default function CardsSection() {
         }
         const data = await response.json();
         setProducts(data);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching products:', error);
+        setLoading(false);
       }
     };
 
@@ -46,27 +50,33 @@ export default function CardsSection() {
           Cardneto Digital Business Cards
         </h2>
         <div className="lg:grid lg:grid-cols-4 md:grid md:grid-cols-2 flex flex-col w-full gap-6">
-          {products.map((product) => (
-            <div key={product.id} className="flex flex-col gap-2">
-              <Link href={`/card/${product.id}`} passHref>
-                <div className="border border-border flex justify-center">
-                  <Image
-                    src={product.mainImageUrl}
-                    width={282}
-                    height={282}
-                    alt={product.name}
-                    className="w-full"
-                  />
-                </div>
-                <h3 className="font-onest text-xl font-medium">
-                  {product.name}
-                </h3>
-                <p className="text-base">{`${product.price} MDL`}</p>
-              </Link>
-            </div>
-          ))}
+          {loading ? (
+            <CardsSkeleton />
+          ) : (
+            products.map((product) => (
+              <div key={product.id} className="flex flex-col gap-2">
+                <Link href={`/card/${product.id}`} passHref>
+                  <div className="border border-border flex justify-center">
+                    <Image
+                      src={product.mainImageUrl}
+                      width={282}
+                      height={282}
+                      alt={product.name}
+                      className="w-full"
+                    />
+                  </div>
+                  <h3 className="font-onest text-xl font-medium">
+                    {product.name}
+                  </h3>
+                  <p className="text-base">{`${product.price} MDL`}</p>
+                </Link>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default CardsSection;

@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  CartItem,
   Color,
   CommonColor,
   Product,
@@ -19,13 +18,25 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/Accordion';
+import { calculateDeliveryDates } from '@/dateUtils/dateUtils';
+import ProductDetailsSkeleton from '@/components/common/ProductSkeleton';
+import LoadingSpinner from '@/components/common/LoadingSpinner';
+const {
+  formattedToday,
+  formattedDeliveryDate,
+  formattedOneDayLater,
+  formattedThreeDaysLater,
+  formattedEightDaysLater,
+} = calculateDeliveryDates();
 
 export default function CardDetail({ params }: { params: { slug: string } }) {
+  const { addToCart, setSelectedColor, selectedColor } = useCart();
   const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedImageUrl, setSelectedImageUrl] = useState<string[]>([]);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
   const [defaultImageUrl, setDefaultImageUrl] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -36,21 +47,24 @@ export default function CardDetail({ params }: { params: { slug: string } }) {
         const data = await response.json();
         setProduct(data);
         setDefaultImageUrl(data.mainImageUrl);
+        setLoading(false);
         console.log('Data', data);
-
         // Other setup logic...
       } catch (error) {
         console.error('Error fetching product:', error);
+        setLoading(false);
       }
     };
 
     fetchProduct();
   }, [params.slug]);
 
-  const { addToCart, selectedColor, setSelectedColor } = useCart();
+  if (!product) {
+    return <ProductDetailsSkeleton />;
+  }
 
-  const handleColorChange = (color: CommonColor) => {
-    setSelectedColor(color);
+  const handleColorChange = (productId: number, color: CommonColor | null) => {
+    setSelectedColor(productId, color);
   };
 
   const decreaseQuantity = () => {
@@ -68,69 +82,22 @@ export default function CardDetail({ params }: { params: { slug: string } }) {
     setSelectedImageIndex(selectedIndex);
   };
 
-  useEffect(() => {
-    console.log('Selected color:', selectedColor);
-    console.log('Product:', product);
-
-    if (selectedColor && product) {
-      const selectedProductColor = product.productColors.find(
-        (color) => color.hexCode === selectedColor.hexCode,
-      );
-
-      if (selectedProductColor) {
-        console.log('Selected product color:', selectedProductColor);
-
-        const colorImages = selectedProductColor.productImages;
-
-        if (colorImages && colorImages.length > 0) {
-          console.log(
-            'Setting selected image URLs:',
-            colorImages.map((image) => image.url),
-          );
-
-          setSelectedImageUrl(colorImages.map((image) => image.url));
-        } else {
-          console.log(
-            'No images found for the selected color. Setting default image URL:',
-            defaultImageUrl,
-          );
-
-          setSelectedImageUrl([defaultImageUrl]);
-        }
-      } else {
-        console.log(
-          'Selected color not found in product colors. Setting default image URL:',
-          defaultImageUrl,
-        );
-
-        setSelectedImageUrl([product.mainImageUrl || defaultImageUrl]);
-      }
-    } else {
-      console.log(
-        'No color selected or product. Setting default image URL:',
-        defaultImageUrl,
-      );
-
-      setSelectedImageUrl([defaultImageUrl]);
-    }
-  }, [selectedColor, defaultImageUrl, product]);
-
-  if (!product) {
-    return <div className="w-10/12 mx-auto py-10">Loading...</div>;
-  }
-
   const handleAddToCart = () => {
     if (product && selectedColor) {
-      addToCart(product, quantity, selectedColor, selectedImageIndex);
+      addToCart(
+        product,
+        quantity,
+        selectedColor?.[product.id],
+        selectedImageIndex,
+      );
+    } else {
+      console.error('Product or selected color is not available.');
     }
   };
-
-  const images =
-    selectedColor && selectedColor.productImages
-      ? selectedColor.productImages.map((image) => image.url)
-      : product.productColors.flatMap((color) =>
-          color.productImages.map((image) => image.url),
-        );
+  const selectedProductColor = selectedColor?.[product.id];
+  const images = selectedProductColor?.productImages?.map(
+    (image) => image.url,
+  ) || [product.mainImageUrl];
 
   const colors: Color[] = product.productColors.map((productColor) => ({
     id: productColor.id,
@@ -140,45 +107,6 @@ export default function CardDetail({ params }: { params: { slug: string } }) {
     productImages: productColor.productImages,
     selected: false,
   }));
-
-  const today = new Date();
-
-  const deliveryDate = new Date(today);
-  deliveryDate.setDate(deliveryDate.getDate() + 7);
-
-  const oneDayLater = new Date(today);
-  oneDayLater.setDate(oneDayLater.getDate() + 1);
-
-  const threeDaysLater = new Date(today);
-  threeDaysLater.setDate(threeDaysLater.getDate() + 3);
-
-  const eightDaysLater = new Date(threeDaysLater);
-  eightDaysLater.setDate(eightDaysLater.getDate() + 8);
-
-  const formattedToday = today.toLocaleDateString('en-US', {
-    month: 'short',
-    day: '2-digit',
-  });
-  const formattedDeliveryDate = deliveryDate.toLocaleDateString('en-US', {
-    month: 'short',
-    day: '2-digit',
-  });
-  const formattedOneDayLater = oneDayLater.toLocaleDateString('en-US', {
-    month: 'short',
-    day: '2-digit',
-  });
-  const formattedThreeDaysLater = threeDaysLater.toLocaleDateString('en-US', {
-    month: 'short',
-    day: '2-digit',
-  });
-  const formattedEightDaysLater = eightDaysLater.toLocaleDateString('en-US', {
-    month: 'short',
-    day: '2-digit',
-  });
-
-  console.log('accordion', product.descriptions.Compatability);
-
-  console.log('Product', product);
 
   return (
     <section>
@@ -191,7 +119,7 @@ export default function CardDetail({ params }: { params: { slug: string } }) {
             images={images}
             selectedImageUrl={selectedImageUrl}
             defaultImageUrl={defaultImageUrl}
-            selectedColor={selectedColor}
+            selectedColor={selectedColor[product.id]}
             onImageSelect={handleImageSelect}
           />
         </div>
@@ -223,8 +151,10 @@ export default function CardDetail({ params }: { params: { slug: string } }) {
           <div className="mr-auto">
             <RadioGroup
               colors={colors}
-              onSelectColor={handleColorChange}
-              selectedColor={selectedColor}
+              onSelectColor={(color: CommonColor | null) =>
+                handleColorChange(product.id, color)
+              }
+              selectedColor={selectedColor?.[product.id]}
             />
           </div>
           <div className="pt-5">
@@ -248,14 +178,29 @@ export default function CardDetail({ params }: { params: { slug: string } }) {
             </Button>
           </div>
 
-          <Link href="/cart">
+          {loading ? (
             <Button
-              onClick={handleAddToCart}
-              className="mt-5 mr-auto w-[161px] h-[40px] font-medium text-base"
+              size="lg"
+              className="font-medium md:w-[161px] text-base"
+              disabled={loading}
             >
-              Add to Cart
+              <div className="flex items-center justify-center gap-2">
+                <LoadingSpinner /> Adding to Cart...
+              </div>
             </Button>
-          </Link>
+          ) : (
+            <Link href="/cart">
+              <Button
+                onClick={handleAddToCart}
+                className={`mt-5 mr-auto w-[161px] h-[40px] font-medium text-base`}
+                disabled={loading}
+              >
+                <div className="flex items-center gap-2">
+                  <span>Add to Cart</span>
+                </div>
+              </Button>
+            </Link>
+          )}
           <hr className="border-0 bg-border h-[1px] w-full mt-5" />
           <div className="flex gap-3 py-6">
             <p className="text-base font-medium">

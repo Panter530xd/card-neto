@@ -54,6 +54,10 @@ export default function CardSlider({
     }
   }, [emblaThumbsApi, selectedImageUrl]);
 
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, [selectedColor]);
+
   const renderThumbs = () => {
     const thumbImages = selectedColor ? images : [defaultImageUrl];
 

@@ -103,67 +103,70 @@ export default function ShippingAddressForm() {
           </div>
 
           <div className="flex items-center">
-            <Select
-              value={selectedPrefix}
-              onValueChange={(value) => setSelectedPrefix(value)}
-            >
-              <SelectTrigger
-                className={` border ${
+            <div>
+              <Select
+                value={selectedPrefix}
+                onValueChange={(value) => setSelectedPrefix(value)}
+              >
+                <SelectTrigger
+                  className={` border ${
+                    errors.phoneNumber
+                      ? 'border-red-600 placeholder:text-red-600'
+                      : 'border-border'
+                  } rounded-l-md rounded-r-none w-[60px] h-[44px]`}
+                >
+                  <SelectValue
+                    placeholder={
+                      <div>
+                        <p
+                          className={`${
+                            errors.phoneNumber ? 'text-red-600' : ''
+                          }`}
+                        >
+                          +373
+                        </p>
+                      </div>
+                    }
+                  >
+                    <span>+{selectedPrefix}</span>
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent className="absolute mt-1 w-full max-h-60 overflow-y-auto bg-white border border-border rounded-md shadow-md">
+                  {countriesAll.map((country) => (
+                    <SelectItem
+                      key={country}
+                      value={getCountryCallingCode(country)}
+                      onSelect={() => {
+                        setSelectedPrefix(getCountryCallingCode(country));
+                      }}
+                    >
+                      {`${country} (+${getCountryCallingCode(country)})`}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.phoneNumber && <div className="w-full h-6"></div>}
+            </div>
+            <div className="relative w-full">
+              <Input
+                type="tel"
+                className={`border ${
                   errors.phoneNumber
                     ? 'border-red-600 placeholder:text-red-600'
-                    : 'border-border'
-                } rounded-l-md rounded-r-none w-[60px] h-[44px]`}
-              >
-                <SelectValue
-                  placeholder={
-                    <div>
-                      <p
-                        className={`${
-                          errors.phoneNumber ? 'text-red-600' : ''
-                        }`}
-                      >
-                        +373
-                      </p>
-                    </div>
-                  }
-                >
-                  <span>+{selectedPrefix}</span>
-                </SelectValue>
-              </SelectTrigger>
-              <SelectContent className="absolute mt-1 w-full max-h-60 overflow-y-auto bg-white border border-border rounded-md shadow-md">
-                {countriesAll.map((country) => (
-                  <SelectItem
-                    key={country}
-                    value={getCountryCallingCode(country)}
-                    onSelect={() => {
-                      setSelectedPrefix(getCountryCallingCode(country));
-                    }}
-                  >
-                    {`${country} (+${getCountryCallingCode(country)})`}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Input
-              type="tel"
-              className={`border ${
-                errors.phoneNumber
-                  ? 'border-red-600 placeholder:text-red-600'
-                  : 'border-border placeholder:text-gray'
-              } rounded-r-md rounded-l-none lg:w-[237px] lg:h-[44px] md:w-[253px] md:-ml-0 w-full h-[44px]`}
-              placeholder="Phone Number"
-              {...register('phoneNumber', { required: true })}
-              value={phoneNumber}
-              onChange={handlePhoneChange}
-            />
+                    : 'border-border placeholder:text-gray'
+                } rounded-r-md rounded-l-none lg:w-[237px] lg:h-[44px] md:w-[253px] md:-ml-0 w-full h-[44px]`}
+                placeholder="Phone Number"
+                {...register('phoneNumber', { required: true })}
+                value={phoneNumber}
+                onChange={handlePhoneChange}
+              />
+              <div className="absololute w-full -ml-14">
+                {errors.phoneNumber && (
+                  <span className="text-red-600">This field is required</span>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div>
-          {errors.phoneNumber && (
-            <span className="text-red-600">This field is required</span>
-          )}
         </div>
 
         <div className="pt-10">
