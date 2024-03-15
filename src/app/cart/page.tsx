@@ -195,7 +195,7 @@ export default function CardPage() {
               </p>
               {loading ? (
                 <Button
-                  className="font-medium  md:w-[141px] w-full text-base"
+                  className="font-medium  md:w-[141px] h-[44px] w-full text-base"
                   disabled={loading}
                 >
                   <div className="flex items-center justify-center gap-2">
@@ -203,9 +203,9 @@ export default function CardPage() {
                   </div>
                 </Button>
               ) : (
-                <Link href="/checkout" className="w-full md:w-[141px]">
+                <Link href="/checkout" className="w-full md:w-[141px] h-[44px]">
                   <Button
-                    className="font-medium w-full md:w-[141px] text-base"
+                    className="font-medium w-full md:w-[141px] h-[44px] text-base"
                     onClick={handleCheckout}
                   >
                     Continue
