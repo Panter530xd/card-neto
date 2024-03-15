@@ -149,7 +149,11 @@ export default function CardPage() {
                       </Button>
                     </div>
                     <div className="md:hidden mr-auto flex w-1/4">
-                      <Button variant="ghost" className="underline font-medium">
+                      <Button
+                        variant="ghost"
+                        className="underline font-medium"
+                        onClick={() => removeFromCart(index)}
+                      >
                         Remove
                       </Button>
                     </div>
