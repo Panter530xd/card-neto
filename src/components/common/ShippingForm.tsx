@@ -23,6 +23,9 @@ import {
 } from '@/components/ui/Select';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
 import { z } from 'zod';
+import LoadingSpinner from './LoadingSpinner';
+
+type FetchStatus = 'idle' | 'fetching' | 'error';
 
 export default function ShippingAddressForm() {
   type FormData = z.infer<typeof shippingAndContactSchema>;
@@ -36,7 +39,7 @@ export default function ShippingAddressForm() {
   const [country, setCountry] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [selectedPrefix, setSelectedPrefix] = useState('');
-
+  const [status, setStatus] = useState<FetchStatus>('idle');
   const countriesAll = getCountries();
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
@@ -53,7 +56,7 @@ export default function ShippingAddressForm() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(dataToSend),
     };
-
+    setStatus('fetching');
     fetch(apiUrl, requestOptions)
       .then((response) => {
         if (!response.ok) {
@@ -67,9 +70,11 @@ export default function ShippingAddressForm() {
         setCountry('');
         setPhoneNumber('');
         setSelectedPrefix('');
+        setStatus('idle');
       })
       .catch((error) => {
         console.error('There was an error with your fetch request:', error);
+        setStatus('error');
       });
   };
 
@@ -357,9 +362,19 @@ export default function ShippingAddressForm() {
             </Link>
             <Button
               type="submit"
-              className="w-[161px] h-[44px] text-base font-medium"
+              className={`w-[161px] h-[44px] text-base font-medium ${
+                status === 'error' ? 'text-red-500' : 'text-pure-white'
+              }`}
+              disabled={status === 'fetching'}
+              variant={status === 'error' ? 'destructive' : 'default'}
             >
-              Add to Cart
+              {status === 'idle' && <div>Add to Cart</div>}
+              {status === 'fetching' && (
+                <div className="flex gap-2 items-center">
+                  <LoadingSpinner /> Adding to cart
+                </div>
+              )}
+              {status === 'error' && <div>Something Wrong</div>}
             </Button>
           </div>
         </div>

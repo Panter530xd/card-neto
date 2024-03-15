@@ -120,7 +120,7 @@ export default function CardDetail({ params }: { params: { slug: string } }) {
   const selectedProductColor = selectedColor?.[product.id];
   const images = selectedProductColor?.productImages?.map(
     (image) => image.url,
-  ) || [product.mainImageUrl];
+  ) || [defaultImageUrl];
 
   const colors: Color[] = product.productColors.map((productColor) => ({
     id: productColor.id,
