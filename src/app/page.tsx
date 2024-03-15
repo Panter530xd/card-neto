@@ -59,11 +59,10 @@ export default function Home() {
   ]);
 
   const fadeAnimation = {
-    hiddenLeft: { opacity: 0, x: -50 },
-    hiddenRight: { opacity: 0, x: 50 },
+    hidden: { opacity: 0, y: -50 },
     visible: {
       opacity: 1,
-      x: 0,
+      y: 0,
       transition: { duration: 1, ease: 'easeInOut' },
     }, // Longer transition duration for a smoother fade
   };
@@ -74,8 +73,8 @@ export default function Home() {
       <motion.div
         ref={heroRef}
         variants={fadeAnimation}
-        initial="hiddenLeft"
-        animate={heroInView ? 'visible' : 'hiddenLeft'}
+        initial="hidden"
+        animate={heroInView ? 'visible' : 'hidden'}
       >
         <HeroComponent />
       </motion.div>
@@ -84,8 +83,8 @@ export default function Home() {
       <motion.div
         ref={sliderRef}
         variants={fadeAnimation}
-        initial="hiddenRight"
-        animate={sliderInView ? 'visible' : 'hiddenRight'}
+        initial="hidden"
+        animate={sliderInView ? 'visible' : 'hidden'}
       >
         <Slider />
       </motion.div>
@@ -94,8 +93,8 @@ export default function Home() {
       <motion.div
         ref={aboutUsRef}
         variants={fadeAnimation}
-        initial="hiddenLeft"
-        animate={aboutUsInView ? 'visible' : 'hiddenLeft'}
+        initial="hidden"
+        animate={aboutUsInView ? 'visible' : 'hidden'}
       >
         <AboutUs />
       </motion.div>
@@ -104,8 +103,8 @@ export default function Home() {
       <motion.div
         ref={howDoesWorkRef}
         variants={fadeAnimation}
-        initial="hiddenRight"
-        animate={howDoesWorkInView ? 'visible' : 'hiddenRight'}
+        initial="hidden"
+        animate={howDoesWorkInView ? 'visible' : 'hidden'}
       >
         <HowDoesWork />
       </motion.div>
@@ -114,8 +113,8 @@ export default function Home() {
       <motion.div
         ref={featuresRef}
         variants={fadeAnimation}
-        initial="hiddenLeft"
-        animate={featuresInView ? 'visible' : 'hiddenLeft'}
+        initial="hidden"
+        animate={featuresInView ? 'visible' : 'hidden'}
       >
         <Features />
       </motion.div>
@@ -124,8 +123,8 @@ export default function Home() {
       <motion.div
         ref={cardsRef}
         variants={fadeAnimation}
-        initial="hiddenRight"
-        animate={cardsInView ? 'visible' : 'hiddenRight'}
+        initial="hidden"
+        animate={cardsInView ? 'visible' : 'hidden'}
       >
         <CardsSection />
       </motion.div>
@@ -134,8 +133,8 @@ export default function Home() {
       <motion.div
         ref={testimonialRef}
         variants={fadeAnimation}
-        initial="hiddenLeft"
-        animate={testimonialInView ? 'visible' : 'hiddenLeft'}
+        initial="hidden"
+        animate={testimonialInView ? 'visible' : 'hidden'}
       >
         <TestimonialSlider testimonials={testimonials} />
       </motion.div>
