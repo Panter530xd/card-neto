@@ -38,50 +38,71 @@ export default function CardDetail({ params }: { params: { slug: string } }) {
   const [defaultImageUrl, setDefaultImageUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await fetch(
-          `https://cardneto.com/api/products/${params.slug}`,
-        );
-        const data = await response.json();
-        setProduct(data);
-        setDefaultImageUrl(data.mainImageUrl);
-        setLoading(false);
-        console.log('Data', data);
-        // Other setup logic...
-      } catch (error) {
-        console.error('Error fetching product:', error);
-        setLoading(false);
-      }
-    };
+  const fetchProduct = async () => {
+    try {
+      const response = await fetch(
+        `https://cardneto.com/api/products/${params.slug}`,
+      );
+      const data = await response.json();
+      setProduct(data);
+      setLoading(false);
+      console.log('Data', data);
+      // Other setup logic...
+    } catch (error) {
+      console.error('Error fetching product:', error);
+      setLoading(false);
+    }
+  };
 
+  // Set default color and default image URL
+  const setDefaultColorAndImage = () => {
+    if (product && !selectedColor[product.id]) {
+      const defaultColor = product.productColors[0];
+      handleColorChange(product.id, defaultColor);
+    }
+  };
+
+  useEffect(() => {
     fetchProduct();
   }, [params.slug]);
+
+  useEffect(() => {
+    setDefaultColorAndImage();
+  }, [product, selectedColor]);
 
   if (!product) {
     return <ProductDetailsSkeleton />;
   }
 
+  // Handle color change
   const handleColorChange = (productId: number, color: CommonColor | null) => {
     setSelectedColor(productId, color);
+
+    if (color) {
+      const defaultImageUrl = color.productImages[0]?.url || '';
+      setDefaultImageUrl(defaultImageUrl);
+    }
   };
 
+  // Decrease quantity
   const decreaseQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
     }
   };
 
+  // Increase quantity
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
   };
 
+  // Handle image selection
   const handleImageSelect = (imageUrls: string[], selectedIndex: number) => {
     setSelectedImageUrl(imageUrls);
     setSelectedImageIndex(selectedIndex);
   };
 
+  // Add to cart
   const handleAddToCart = () => {
     if (product && selectedColor) {
       addToCart(
@@ -94,6 +115,8 @@ export default function CardDetail({ params }: { params: { slug: string } }) {
       console.error('Product or selected color is not available.');
     }
   };
+
+  // Set up images and colors
   const selectedProductColor = selectedColor?.[product.id];
   const images = selectedProductColor?.productImages?.map(
     (image) => image.url,
@@ -103,7 +126,6 @@ export default function CardDetail({ params }: { params: { slug: string } }) {
     id: productColor.id,
     name: productColor.name,
     hexCode: productColor.hexCode,
-
     productImages: productColor.productImages,
     selected: false,
   }));
